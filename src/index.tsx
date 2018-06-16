@@ -4,14 +4,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { Route } from 'react-router';
+import { ThemeProvider } from 'react-jss';
 import {
     ConnectedRouter,
     routerReducer,
     routerMiddleware,
     push,
   } from 'react-router-redux';
+import theme from './theme';
 
-import { Hello } from './components/Hello';
 import Home from './components/Home';
 
 interface IWindow {
@@ -34,12 +35,12 @@ const store = createStore(
 );
 
 ReactDOM.render(
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <div>
-          <Route exact path={'/'} component={Home} />
-        </div>
-      </ConnectedRouter>
-    </Provider>,
-    document.getElementById('demo'),
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <ThemeProvider theme={theme}>
+        <Route path={'/'} component={Home} />
+      </ThemeProvider>
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById('demo'),
 );

@@ -1,18 +1,28 @@
 import React from 'react';
-import Tabs from '../shared/Tabs';
+import { Route, Switch } from 'react-router'
+import NavigableTabs from '../shared/NavigableTabs';
 
 const tabsConfig = [
-  { label: 'test1' },
-  { label: 'test2' },
-  { label: 'test3' },
-  { label: 'test4' },
-  { label: 'test5' },
+  { label: 'すべて', route: '/', key: 'all' },
+  { label: 'レディース', route: '/ladies', key: 'ladies' },
+  { label: 'ベビー・キッズ', route: '/baby', key: 'baby' },
+  { label: 'エンタメ', route: '/entertain', key: 'entertain' },
+  { label: 'メンズ', route: '/men', key: 'men' },
 ];
 
 export default class HomePage extends React.PureComponent<{}, {}> {
   render() {
     return (
-      <Tabs tabsConfig={tabsConfig} />
+      <>
+        <NavigableTabs tabsConfig={tabsConfig} />
+        <Switch>
+          {
+            tabsConfig.map(config => (
+              <Route key={config.key} path={config.route} render={() => <div>{config.route}</div>} />
+            ))
+          }
+        </Switch>
+      </>
     );
   }
 }
