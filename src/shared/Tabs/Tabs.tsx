@@ -5,6 +5,9 @@ const styles = (theme) => ({
   container: {
     overflow: 'hidden',
     height: '44px',
+    'background-color': theme.colors.canvas,
+    'border-bottom': `1px solid ${theme.colors.borderColor}`,
+    'margin-bottom': '5px',
   },
   ul: {
     display: 'flex',
@@ -61,7 +64,7 @@ class Tabs extends React.PureComponent<ITabsProps, {}> {
           {
             tabsConfig.map((config, i) => (
               <li key={config.label} className={classes.li}>
-                { React.createElement(tabElement, {...config, active: i === activeIndex}) }
+                {React.createElement(tabElement, { ...config, active: i === activeIndex })}
               </li>
             ))
           }
