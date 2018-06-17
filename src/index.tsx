@@ -4,7 +4,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { ThemeProvider } from 'react-jss';
 import {
   ConnectedRouter,
@@ -50,14 +50,16 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <IntlProvider locale={'ja'}>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <ThemeProvider theme={theme}>
-          <Route path={'/'} component={Home} />
-          <Route path={'/items/:id'} component={ItemDetail} />
-        </ThemeProvider>
-      </ConnectedRouter>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route path={'/items/:id'} component={ItemDetail} />
+            <Route path={'/'} component={Home} />
+          </Switch>
+        </ConnectedRouter>
+      </Provider>
+    </ThemeProvider>
   </IntlProvider>,
   document.getElementById('demo'),
 );

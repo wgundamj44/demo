@@ -2,6 +2,7 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import { injectIntl } from 'react-intl';
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 import { IProduct } from '../../modules/products/defs';
 import LikeCount from './LikeCount';
 import SoldOutBadge from './SoldOutBadge';
@@ -46,25 +47,27 @@ class ProductGridItem extends React.Component<IOwnProps> {
   render() {
     const { intl, item, className, classes } = this.props;
     return (
-      <div className={classnames(className, classes.container)}>
-        <div className={classes.imgContainer}>
-          <img src={item.image} className={classes.img} />
-          {item.isSoldOut ? <SoldOutBadge /> : null}
-        </div>
-        <div>
-          <div className={classes.name}>
-            {item.name}
+      <Link to={`/items/${item.id}`}>
+        <div className={classnames(className, classes.container)}>
+          <div className={classes.imgContainer}>
+            <img src={item.image} className={classes.img} />
+            {item.isSoldOut ? <SoldOutBadge /> : null}
           </div>
-          <div className={classes.secondRow}>
-            <div className={classes.price}>
-              {intl.formatNumber(item.price, { style: 'currency', currency: 'JPY' })}
+          <div>
+            <div className={classes.name}>
+              {item.name}
             </div>
-            <div className={classes.likeContainer}>
-              {item.like_count > 0 ? <LikeCount count={item.like_count} /> : null}
+            <div className={classes.secondRow}>
+              <div className={classes.price}>
+                {intl.formatNumber(item.price, { style: 'currency', currency: 'JPY' })}
+              </div>
+              <div className={classes.likeContainer}>
+                {item.like_count > 0 ? <LikeCount count={item.like_count} /> : null}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 }
